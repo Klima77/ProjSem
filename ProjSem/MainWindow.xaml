@@ -6,12 +6,19 @@
         xmlns:local="clr-namespace:ProjSem"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
+
+
     <Grid>
         <TabControl Grid.ColumnSpan="3">
             <TabItem Header="Pojazdy na parkingu">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Name="onParkingNow" Margin="20"  IsReadOnly="True" >
-                        
+                    <DataGrid Grid.Row="1" x:Name="dataGridPojazdy" AutoGenerateColumns="False" Margin="10" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Numer Rejestracyjny" Width="200" Binding="{Binding NrRejestracyjny}"/>
+                            <DataGridTextColumn Header="Data Zakupu" Width="300" Binding="{Binding DataZakupu}"/>
+                            <DataGridTextColumn Header="Data Ważności" Width="*" Binding="{Binding DataWaznosci}"/>
+                        </DataGrid.Columns>
                     </DataGrid>
                 </Grid>
             </TabItem>
@@ -42,7 +49,6 @@
                     <ListBox d:ItemsSource="{d:SampleData ItemCount=19}" Margin="65,10,555,10" Grid.ColumnSpan="2"/>
                     <ListBox d:ItemsSource="{d:SampleData ItemCount=19}" Margin="163,10,310,10" Grid.Column="1"/>
                     <ListBox d:ItemsSource="{d:SampleData ItemCount=19}" Margin="409,10,64,10" Grid.Column="1"/>
-
                 </Grid>
             </TabItem>
         </TabControl>
