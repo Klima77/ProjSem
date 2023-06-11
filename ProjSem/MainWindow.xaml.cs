@@ -29,7 +29,11 @@ namespace ProjSem
 
         private void LoadPojazdyData()
         {
-            var pojazdy = dbContext.Pojazdies.Include("Bileties").ToList();
+            var currentDate = DateTime.Now;
+            var pojazdy = dbContext.Pojazdies.Include("Bileties")
+                .Where(p => p.Bileties.Any(b => b.DataWaznosci >= currentDate))
+                .ToList();
+
             dataGridPojazdy.ItemsSource = pojazdy.SelectMany(p => p.Bileties).ToList();
         }
 
@@ -40,7 +44,6 @@ namespace ProjSem
 
             if (!string.IsNullOrEmpty(numerRejestracyjny) && !string.IsNullOrEmpty(rodzajBiletu))
             {
-                // Sprawdzenie, czy rodzaj biletu istnieje w bazie danych
                 RodzajeBiletow rodzaj = dbContext.RodzajeBiletows.FirstOrDefault(r => r.Nazwa == rodzajBiletu);
 
                     // Tworzenie nowego obiektu pojazdu
@@ -49,7 +52,7 @@ namespace ProjSem
                         NrRejestracyjny = numerRejestracyjny
                     };
 
-                // Tworzenie nowego dziennego biletu
+                // Dzienny
                 if (rodzajBiletu == "Dzienny")
                 {
                     Bilety nowyBilet = new Bilety
@@ -66,7 +69,7 @@ namespace ProjSem
                     dbContext.Bileties.Add(nowyBilet);
                     dbContext.SaveChanges();
                 }
-                // Tworzenie nowego godzinnego biletu
+                // Godzinny
                 else if (rodzajBiletu == "Godzinny")
                 {
                     Bilety nowyBilet = new Bilety
@@ -84,7 +87,7 @@ namespace ProjSem
                     dbContext.SaveChanges();
                 }
 
-                // Tworzenie nowego miesiecznego biletu
+                // Miesieczny
                 else if (rodzajBiletu == "Miesięczny")
                 {
                     Bilety nowyBilet = new Bilety
@@ -117,6 +120,11 @@ namespace ProjSem
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+        }
+        private void BtnHistoria_Click(object sender, RoutedEventArgs e)
+        {
+            WindowHistoria windowHistoria = new WindowHistoria();
+            windowHistoria.ShowDialog();
         }
     }
 }

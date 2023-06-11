@@ -6,20 +6,18 @@
         xmlns:local="clr-namespace:ProjSem"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
-
-
     <Grid>
         <TabControl Grid.ColumnSpan="3">
             <TabItem Header="Pojazdy na parkingu">
                 <Grid Background="#FFE5E5E5">
-                    <DataGrid Grid.Row="1" x:Name="dataGridPojazdy" AutoGenerateColumns="False" Margin="10" IsReadOnly="True">
+                    <DataGrid x:Name="dataGridPojazdy" AutoGenerateColumns="False" Margin="10,10,10,40" IsReadOnly="True">
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Numer Rejestracyjny" Width="200" Binding="{Binding NrRejestracyjny}"/>
                             <DataGridTextColumn Header="Data Zakupu" Width="300" Binding="{Binding DataZakupu}"/>
                             <DataGridTextColumn Header="Data Ważności" Width="*" Binding="{Binding DataWaznosci}"/>
                         </DataGrid.Columns>
                     </DataGrid>
+                    <Button Content="Historia Pojazdów na parkingu" Height="40" Click="BtnHistoria_Click" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
                 </Grid>
             </TabItem>
             <TabItem Header="Dodaj Pojazd" Height="22" Margin="-2,0,-2,0" VerticalAlignment="Bottom">
@@ -38,17 +36,6 @@
                         <ComboBoxItem Content="Miesięczny" />
                     </ComboBox>
                     <Label Content="Rodzaj Biletu:" HorizontalAlignment="Center" Margin="-65,66,0,0" VerticalAlignment="Top" Height="26" Width="85" Grid.Row="1" FontSize="12" />
-                </Grid>
-            </TabItem>
-            <TabItem Header="Historia pojazdów">
-                <Grid Background="#FFE5E5E5">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="147*"/>
-                        <ColumnDefinition Width="647*"/>
-                    </Grid.ColumnDefinitions>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=19}" Margin="65,10,555,10" Grid.ColumnSpan="2"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=19}" Margin="163,10,310,10" Grid.Column="1"/>
-                    <ListBox d:ItemsSource="{d:SampleData ItemCount=19}" Margin="409,10,64,10" Grid.Column="1"/>
                 </Grid>
             </TabItem>
         </TabControl>
